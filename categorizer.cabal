@@ -1,0 +1,37 @@
+name:                categorizer
+version:             0.1.0.0
+synopsis:            A fast SKOS categorizer for documents
+description:         A fast SKOS categorizer for documents 
+homepage:            https://github.com/ameingast/categorizer
+license:             BSD3
+license-file:        LICENSE
+author:              Andreas Meingast
+maintainer:          ameingast@gmail.com
+category:            Text
+build-type:          Simple
+cabal-version:       >=1.6
+
+executable categorizer
+    main-is:            Main.hs
+    hs-source-dirs:     src
+
+    ghc-options:        -O2 -Wall -fwarn-tabs -funbox-strict-fields -threaded
+    ghc-prof-options:   -prof -auto-all
+
+    extensions:         OverloadedStrings
+
+    build-depends:      base            >= 4.5.0    && < 4.6.0,
+                        bytestring      >= 0.9      && < 0.11,
+                        containers      >= 0.4      && < 0.5,
+                        enumerator      >= 0.4      && < 0.5,
+
+                        warp            >= 1.3      && < 1.4,
+                        wai             >= 1.3      && < 1.4,
+                        aeson           >= 0.6      && < 0.7,
+                        text            >= 0.11     && < 0.12,
+                        http-types      >= 0.7      && < 0.8,
+                        transformers    >= 0.3      && < 0.4
+
+source-repository head
+    type:               git
+    location:           https://github.com/ameingast/categorizer.git
