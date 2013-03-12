@@ -6,18 +6,20 @@ import qualified Data.ByteString as BS
 
 type UUID = BS.ByteString
 type Language = BS.ByteString
+type DictionaryName = BS.ByteString
 
 data Dictionary = Dictionary
     { _dictionaryId :: UUID 
-    , _dictionaryName :: BS.ByteString
+    , _dictionaryName :: DictionaryName
+    , _dictionaryLanguages :: [Language]
     , _dictionaryConcepts :: [Concept] }
     deriving (Show, Eq, Read, Ord)
 
 instance ToJSON Dictionary where
-    toJSON (Dictionary someId name concepts) = object
+    toJSON (Dictionary someId name languages _concepts) = object
         [ "id" .= someId
         , "name" .= name 
-        , "concepts" .= toJSON concepts ]
+        , "languages" .= languages ]
 
 data Concept = Concept
     { _conceptId :: UUID 

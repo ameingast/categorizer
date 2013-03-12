@@ -52,6 +52,9 @@ getDictionary matcher dictId = liftM
     (safeHead . filter (\d -> dictId == _dictionaryId d))
     (readMVar $ _matcherDictionaries matcher)
 
+listDictionaries :: InMemoryMatcher -> IO [Dictionary]
+listDictionaries = readMVar . _matcherDictionaries
+
 extract :: InMemoryMatcher -> UUID -> BS.ByteString -> Language -> IO (Maybe Document)
 extract matcher dictId text language =
     getDictionary matcher dictId >>= \d -> case d of

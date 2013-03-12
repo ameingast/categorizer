@@ -23,6 +23,8 @@ application matcher request = case buildRequest request of
                 liftIO (addDictionary matcher dict) >>= sendJSON . AddDictionaryResponse
     (GetDictionaryRequest someId) ->
         liftIO (getDictionary matcher someId) >>= sendJSON . GetDictionaryResponse
+    ListDictionaryRequest ->
+        liftIO (listDictionaries matcher) >>= sendJSON . ListDictionaryResponse 
     (ExtractRequest someId text language) ->
         liftIO (extract matcher someId text language) >>= \d -> case d of
             Nothing ->
@@ -42,6 +44,8 @@ buildRequest request = case urlRoot request of
         fromMaybe InvalidRequest $ liftM AddDictionaryRequest (param request "text")
     (Just "get") ->
         fromMaybe InvalidRequest $ liftM GetDictionaryRequest (param request "id")
+    (Just "list") ->
+        ListDictionaryRequest
     (Just "extract") ->
         fromMaybe InvalidRequest $ do
             someId <- param request "id"
