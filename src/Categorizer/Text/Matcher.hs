@@ -70,7 +70,7 @@ matchAnnotations dict doc = doc
         annotations [] as = as
         annotations ((pos, word):xs) as = 
             let cs = lookupConcepts word concepts []
-            in annotations xs (if null cs then as else Annotation cs pos:as)
+            in annotations xs (if null cs then as else ConceptAnnotation cs pos:as)
 
         lookupConcepts:: Word -> [Concept] -> [Concept] -> [Concept] 
         lookupConcepts _ [] mcs = mcs

@@ -33,5 +33,5 @@ instance ToJSON CategorizerResponse where
     toJSON (AddDictionaryResponse someId) = object [ "id" .= someId ]
     toJSON (GetDictionaryResponse (Just dict)) = object [ "dictionary" .= toJSON dict ]
     toJSON (GetDictionaryResponse _) = toJSON (ErrorResponse "No Such dictionary")
-    toJSON (ExtractResponse concepts) = object [ "concepts" .= toJSON concepts ]
+    toJSON (ExtractResponse concepts) = object [ "extraction" .= toJSON concepts ]
     toJSON (ErrorResponse reason) = object [ "error" .= reason ]

@@ -14,21 +14,25 @@ data WordIndex = WordIndex
     , _idxWordToPos :: M.Map Word [Integer] }
     deriving (Show, Eq, Read, Ord)
 
-emptyIndex :: WordIndex
-emptyIndex = WordIndex M.empty M.empty
+emptyWordIndex :: WordIndex
+emptyWordIndex = WordIndex M.empty M.empty
 
 instance ToJSON WordIndex where
-    toJSON (WordIndex _posToWord _wordToPos) = object []
+    toJSON (WordIndex _posToWord wordToPos) = toJSON wordToPos
 
-data Annotation = Annotation
-    { _annotationConcepts :: [Concept]
-    , _annotationPos :: Integer }
+data Annotation
+    = ConceptAnnotation 
+        { _annotationConcepts :: [Concept]
+        , _annotationPos :: Integer }
+    | EmptyAnnotation
     deriving (Show, Eq, Read, Ord)
 
 instance ToJSON Annotation where
-    toJSON (Annotation label pos) = object 
-        [ "label" .= label
+    toJSON (ConceptAnnotation label pos) = object 
+        [ "type" .= toJSON ("concept" :: String)
+        , "label" .= label
         , "pos" .= pos ]
+    toJSON (EmptyAnnotation) = object []
 
 data Document = Document
     { _documentWordIndex :: WordIndex
@@ -44,12 +48,18 @@ instance ToJSON Document where
 
 parseDocument :: BS.ByteString -> Language -> Document
 parseDocument s language = Document 
-    { _documentWordIndex = buildWordIndex 0 emptyIndex (buildWords s)
+    { _documentWordIndex = buildWordIndex 1 emptyWordIndex (buildWords s)
     , _documentLanguage = language
     , _documentAnnotations = [] }
 
-buildWords :: BS.ByteString -> [BS.ByteString]
-buildWords = C8.splitWith (`elem` " \n\t")
+splitWords :: String
+splitWords = " \n\t.:!?"
+
+buildWords :: Word -> [Word]
+buildWords = filterWords . C8.splitWith (`elem` splitWords)
+
+filterWords :: [Word] -> [Word]
+filterWords = filter (`notElem` [""])
 
 buildWordIndex :: Integer -> WordIndex -> [BS.ByteString] -> WordIndex
 buildWordIndex _ idx [] = calculateWordToPos idx
