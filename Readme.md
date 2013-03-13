@@ -24,6 +24,7 @@ This command initializes a Heroku application and adds a Haskell buildpack to
 the project.
 
 In order to deploy the application, execute the following commands: 
+
     $ git push heroku master
 
 After deployment you can start the application with: _heroku ps:scale web=1_
