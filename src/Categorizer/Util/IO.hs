@@ -17,10 +17,10 @@ readFileSafe path =
         handler e = print e >> return Nothing
 
 safeGetEnv :: String -> IO (Maybe String)
-safeGetEnv s = liftM readSafe (getEnv s) `E.catch` handler
+safeGetEnv s = liftM Just (getEnv s) `E.catch` handler
     where
         handler :: IOError -> IO (Maybe String)
-        handler _ = return Nothing
+        handler e = print e >> return Nothing
 
 safeReadEnv :: Read a => String -> IO (Maybe a)
 safeReadEnv s =
