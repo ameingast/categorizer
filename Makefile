@@ -14,5 +14,8 @@ build: configure
 clean:
 	@cabal clean
 
+run: build
+	@./$(target)
+
 doc:
 	@cabal haddock --executables
