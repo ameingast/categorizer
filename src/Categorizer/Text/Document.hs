@@ -28,9 +28,9 @@ data Annotation
     deriving (Show, Eq, Read, Ord)
 
 instance ToJSON Annotation where
-    toJSON (ConceptAnnotation label pos) = object 
+    toJSON (ConceptAnnotation concepts pos) = object 
         [ "type" .= toJSON ("concept" :: String)
-        , "label" .= label
+        , "concepts" .= concepts
         , "pos" .= pos ]
     toJSON (EmptyAnnotation) = object []
 
