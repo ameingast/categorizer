@@ -27,7 +27,9 @@ In order to deploy the application, execute the following commands:
 
     $ git push heroku master
 
-After deployment you can start the application with: _heroku ps:scale web=1_
+After deployment you can start the application with: 
+
+    $ heroku ps:scale web=1
 
 ## Caveats
 Categorizer is still in active development and currently does not have any
