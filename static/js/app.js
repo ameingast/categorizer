@@ -41,7 +41,8 @@ $(function() {
 
         var query =  "/extract?id=" + projectId + "&language=" + language + "&text=" + text;
 
-        $.get(query, function(data) {
+        var data = {"id":projectId, "language": language, "text":text}
+        $.post("/extract", data, function(data) {
             if (!data || !data.extraction) {
                 renderError("Unable to extract text", data);
                 return;
@@ -52,6 +53,15 @@ $(function() {
             });
         });
     };
+
+    function addDictionary() {
+        var name = $("#dict-name").val(); 
+        var text = $("#dict-contents").val();
+
+        $.post("/add", { "name":name, "text":text }, function(data) {
+            alert(data);
+        });
+    }
 
     function enableDictionaryMode() {
         $("#row-extract").hide();
@@ -75,6 +85,11 @@ $(function() {
 
     $("#submit").click(function() {
         extractText();
+        return false;
+    });
+
+    $("#submit-dict").click(function() {
+        addDictionary();
         return false;
     });
 });

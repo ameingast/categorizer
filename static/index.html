@@ -52,9 +52,18 @@
                 <div id="vis" class="span6">
                 </div>
             </div>
-            <div id="row-dictionary" style="display: none;">
+            <div id="row-dictionary" class="row-fluid" style="display: none;">
                 <div id="form-dictionary" class="span6">
-
+                    <form action="#">
+                        <fieldset>
+                            <label for="dict-name">Dictionary Name</label>
+                            <input id="dict-name" type="text" placeholder="dictionary name..."/>
+                            <label for="dict-contents">Dictionary Text</label>
+                            <textarea id="dict-contents" rows="15"></textarea><br/>
+                            <button id="submit-dict" type="button" class="btn btn-primary">Add dictionary</button>
+                            <button class="btn">Clear</button>
+                        </fieldset>
+                    </form>
                 </div>
                 <div id="vis-dict" class="span6">
                 </div>

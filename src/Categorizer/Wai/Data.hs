@@ -8,7 +8,8 @@ import qualified Data.ByteString as BS
 
 data CategorizerRequest
     = AddDictionaryRequest
-        { _addDictionaryText :: BS.ByteString }
+        { _addDictionaryName :: BS.ByteString
+        , _addDictionaryText :: BS.ByteString }
     | GetDictionaryRequest
         { _getDictionaryId :: UUID }
     | ListDictionaryRequest
