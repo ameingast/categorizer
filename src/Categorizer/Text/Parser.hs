@@ -5,7 +5,6 @@ import Categorizer.Util.Maybe(readSafe)
 
 import qualified Data.ByteString as BS
 import qualified Data.ByteString.Char8 as C8
-import qualified System.UUID.V4 as UUID
 
 parseDictionary :: DictionaryName -> BS.ByteString -> IO (Maybe Dictionary)
 parseDictionary name s =
@@ -13,10 +12,9 @@ parseDictionary name s =
         Nothing -> do
             putStrLn $ "Cannot parse dictionary: " ++ C8.unpack s
             return Nothing
-        Just dict -> do
-            someId <- UUID.uuid
-            return $ Just $ dict 
+        Just dict ->
+            return $ Just $ dict
                 { _dictionaryName = name
-                , _dictionaryId = C8.pack $ show someId }
+                , _dictionaryId = "123" }
 
 
