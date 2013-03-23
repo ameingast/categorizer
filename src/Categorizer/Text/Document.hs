@@ -2,12 +2,11 @@ module Categorizer.Text.Document where
 
 import Data.Aeson
 import Categorizer.Text.Data
+import Categorizer.Text.Tokenizer
 
 import qualified Data.ByteString as BS
 import qualified Data.ByteString.Char8 as C8
 import qualified Data.Map as M
-
-type Word = BS.ByteString
 
 data WordIndex = WordIndex
     { _idxPosToWord :: M.Map Integer Word
@@ -48,18 +47,9 @@ instance ToJSON Document where
 
 parseDocument :: BS.ByteString -> Language -> Document
 parseDocument s language = Document 
-    { _documentWordIndex = buildWordIndex 1 emptyWordIndex (buildWords s)
+    { _documentWordIndex = buildWordIndex 1 emptyWordIndex (tokenizeWords makeTokenizer s)
     , _documentLanguage = language
     , _documentAnnotations = [] }
-
-splitWords :: String
-splitWords = " \n\t.:!?"
-
-buildWords :: Word -> [Word]
-buildWords = filterWords . C8.splitWith (`elem` splitWords)
-
-filterWords :: [Word] -> [Word]
-filterWords = filter (`notElem` [""])
 
 buildWordIndex :: Integer -> WordIndex -> [BS.ByteString] -> WordIndex
 buildWordIndex _ idx [] = calculateWordToPos idx

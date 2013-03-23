@@ -42,7 +42,7 @@ $(function() {
         var query =  "/extract?id=" + projectId + "&language=" + language + "&text=" + text;
 
         var data = {"id":projectId, "language": language, "text":text}
-        $.post("/extract", data, function(data) {
+        $.post("/extract", data).done(function(data) {
             if (!data || !data.extraction) {
                 renderError("Unable to extract text", data);
                 return;
@@ -51,6 +51,8 @@ $(function() {
             $.each(data.extraction.annotations, function(i, annotation) {
                 displayConcepts(annotation.concepts);
             });
+        }).fail(function(e) {
+            renderError("Unable to extract text", e);   
         });
     };
 
@@ -58,8 +60,15 @@ $(function() {
         var name = $("#dict-name").val(); 
         var text = $("#dict-contents").val();
 
-        $.post("/add", { "name":name, "text":text }, function(data) {
-            alert(data);
+        $.post("/add", { "name":name, "text":text }).done(function(data) {
+            if (!data || !data.id) {
+                renderError("Unable to add dictionary", data);
+                return;
+            }
+            
+            $("#vis-dict").html("<p>Added dictionary with id: " + data.id + "</p>");
+        }).fail(function(e) {
+            renderError("Unable to add dictionary", e);
         });
     }
 

@@ -3,6 +3,7 @@ module Categorizer.Text.Matcher where
 import Categorizer.Util.List(safeHead)
 import Categorizer.Util.Maybe(readSafe)
 import Categorizer.Text.Data
+import Categorizer.Text.Tokenizer
 import Categorizer.Text.Document
 import Categorizer.Util.IO(readFileSafe)
 import Control.Concurrent.MVar
@@ -42,7 +43,7 @@ loadMatcher =
         newMatcher :: IO InMemoryMatcher
         newMatcher = liftM InMemoryMatcher (newMVar [])
 
-addDictionary :: InMemoryMatcher ->Dictionary -> IO UUID
+addDictionary :: InMemoryMatcher -> Dictionary -> IO UUID
 addDictionary matcher dict = modifyMVar
     (_matcherDictionaries matcher)
     (\ds -> return (dict:ds, _dictionaryId dict))
