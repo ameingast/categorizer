@@ -5,7 +5,6 @@ import Categorizer.Text.Data
 import Categorizer.Text.Tokenizer
 
 import qualified Data.ByteString as BS
-import qualified Data.ByteString.Char8 as C8
 import qualified Data.Map as M
 
 data WordIndex = WordIndex
