@@ -5,6 +5,7 @@ import Categorizer.Configuration(Configuration(..), loadConfiguration)
 import Categorizer.Text.Matcher(loadMatcher)
 import Network.Wai.Handler.Warp(run)
 import Network.Wai.Middleware.Static(only, addBase, (<|>), Policy, staticPolicy)
+import Categorizer.Rdf
 
 main :: IO ()
 main = do
@@ -16,3 +17,5 @@ main = do
         policy :: Policy
         policy = only [("", "static/index.html"), ("/", "static/index.html")] 
                 <|> addBase "static"
+
+

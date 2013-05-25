@@ -32,7 +32,8 @@ executable categorizer
                         aeson                       >= 0.6      && < 0.7,
                         text                        >= 0.11     && < 0.12,
                         http-types                  >= 0.7      && < 0.8,
-                        transformers                >= 0.3      && < 0.4
+                        transformers                >= 0.3      && < 0.4,
+                        rdf4h                       >= 1.1.0    && < 1.2
 
 source-repository head
     type:               git

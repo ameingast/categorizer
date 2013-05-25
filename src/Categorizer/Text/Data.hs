@@ -21,6 +21,7 @@ instance ToJSON Dictionary where
         , "name" .= name 
         , "languages" .= languages ]
 
+-- TODO: concept can have a preflabel in each language
 data Concept = Concept
     { _conceptId :: UUID 
     , _conceptPrefLabel :: Label
