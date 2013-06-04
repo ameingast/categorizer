@@ -71,6 +71,21 @@ $(function() {
             renderError("Unable to add dictionary", e);
         });
     }
+    
+    function addSkos() {
+        var url = $("#skos-url").val(); 
+
+        $.post("/skos", { "url":url }).done(function(data) {
+            if (!data || !data.id) {
+                renderError("Unable to process rdf dump", data);
+                return;
+            }
+            
+            $("#vis-dict").html("<p>Added skos dictionary with id: " + data.id + "</p>");
+        }).fail(function(e) {
+            renderError("Unable to add dictionary", e);
+        });
+    }
 
     function enableDictionaryMode() {
         $("#row-extract").hide();
@@ -99,6 +114,11 @@ $(function() {
 
     $("#submit-dict").click(function() {
         addDictionary();
+        return false;
+    });
+    
+    $("#submit-skos").click(function() {
+        addSkos();
         return false;
     });
 });

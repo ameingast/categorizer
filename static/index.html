@@ -53,7 +53,7 @@
                 </div>
             </div>
             <div id="row-dictionary" class="row-fluid" style="display: none;">
-                <div id="form-dictionary" class="span6">
+                <div id="form-dictionary" class="span3">
                     <form action="#">
                         <fieldset>
                             <label for="dict-name">Dictionary Name</label>
@@ -61,6 +61,17 @@
                             <label for="dict-contents">Dictionary Text</label>
                             <textarea id="dict-contents" rows="15"></textarea><br/>
                             <button id="submit-dict" type="button" class="btn btn-primary">Add dictionary</button>
+                            <button class="btn">Clear</button>
+                        </fieldset>
+                    </form>
+                </div>
+                <div id="form-skos" class="span3">
+                    <form action="#">
+                        <fieldset>
+                            <label for="skos-url">Dictionary Name</label>
+                            <input id="skos-url" type="text" placeholder="skos.n3 url..."/>
+                            <br/>
+                            <button id="submit-skos" type="button" class="btn btn-primary">Add rdf dump</button>
                             <button class="btn">Clear</button>
                         </fieldset>
                     </form>
